@@ -65,8 +65,11 @@ def home():
     profile = service.users().getProfile(userId='me').execute()
     email_address = profile.get('emailAddress')
 
-    return render_template('home.html', email=email_address)
+    return redirect(url_for('summarytime'))
 
+@app.route('/summarytime')
+def summarytime():
+    return redirect('home.html')
 
 if __name__ == '__main__':
     app.run(ssl_context=('https.crt', 'https.key'), debug=True)
