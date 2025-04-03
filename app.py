@@ -6,7 +6,7 @@ from google.oauth2.credentials import Credentials
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key'  # Replace with a secure key
+app.secret_key = '24ce13f884f9c0ef0ff9e58a22d32aec'  # Replace with a secure key
 
 # OAuth2 Config
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Only for local development
