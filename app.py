@@ -6,7 +6,7 @@ from google.oauth2.credentials import Credentials
 import os
 
 app = Flask(__name__)
-app.secret_key = '24ce13f884f9c0ef0ff9e58a22d32aec'  # Replace with a secure key
+app.secret_key = '24ce13f884f9c0ef0ff9e58a22d32aec'
 
 # OAuth2 Config
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Only for local development
@@ -65,11 +65,13 @@ def home():
     profile = service.users().getProfile(userId='me').execute()
     email_address = profile.get('emailAddress')
 
-    return redirect(url_for('summarytime'))
+    return redirect(url_for('summary_time'))
 
-@app.route('/summarytime')
-def summarytime():
-    return redirect('home.html')
+@app.route('/summary_time')
+@app.route('/summary_time.html')
+
+def summary_time():
+    return render_template('summary_time.html')
 
 if __name__ == '__main__':
     app.run(ssl_context=('https.crt', 'https.key'), debug=True)
