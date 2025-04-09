@@ -3,6 +3,7 @@ from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 
+
 import os
 
 app = Flask(__name__)
@@ -50,28 +51,36 @@ def callback():
         'scopes': credentials.scopes
     }
 
-    return redirect(url_for('home'))
+    return redirect(url_for('summary_time'))
 
 
-@app.route('/home')
-def home():
+@app.route('/summary_time')
+def summary_time():
+    if 'credentials' not in session:
+        return redirect(url_for('index'))
+    return render_template('summary_time.html')
+
+
+@app.route('/generate_summary', methods=['POST'])
+def generate_summary():
     if 'credentials' not in session:
         return redirect(url_for('index'))
 
     creds = session['credentials']
     service = build('gmail', 'v1', credentials=Credentials(**creds))
 
-    # Get the user's Gmail profile
-    profile = service.users().getProfile(userId='me').execute()
-    email_address = profile.get('emailAddress')
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
 
-    return redirect(url_for('summary_time'))
+    # Gmail format is YYYY/MM/DD
+    gmail_query = f'after:{start_date} before:{end_date} ("You received money" OR "You sent money")'
+    results = service.users().messages().list(userId='me', q=gmail_query).execute()
+    messages = results.get('messages', [])
 
-@app.route('/summary_time')
-@app.route('/summary_time.html')
+    summary = f"Found {len(messages)} Zelle message(s) between {start_date} and {end_date}."
 
-def summary_time():
-    return render_template('summary_time.html')
+    return render_template('summary_result.html', summary=summary)
+
 
 if __name__ == '__main__':
     app.run(ssl_context=('https.crt', 'https.key'), debug=True)

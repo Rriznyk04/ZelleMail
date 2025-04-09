@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ZelleMail Summary Time</title>
+    <title>Summary Time</title>
 </head>
 <body>
-    <h1>Welcome.</h1>
-    <p>Please choose your Zelle summary time boundries.</p>
-
-    <label for="start-date">Choose a zelle summary start date:</label>
-    <input type="date" id="start-date" name="start-date">
-
-    <label for="end-date">Choose a zelle summary end date:</label>
-    <input type="date" id="end-date" name="end-date">
-
-    <form action="Generate" method="post">
+    <h1>Choose Date Range</h1>
+    <form action="/generate_summary" method="post">
+        <label>Start Date:</label>
+        <input type="date" name="start_date" required><br><br>
+        <label>End Date:</label>
+        <input type="date" name="end_date" required><br><br>
         <button type="submit">Generate Summary</button>
     </form>
 </body>
 </html>
+
