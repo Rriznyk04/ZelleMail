@@ -1,14 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ZelleMail Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZelleMail</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff; /* Light background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            text-align: center;
+            background-color: white; /* White background for the container */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Bootstrap primary blue */
+            border-color: #007bff;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            transition: background-color 0.3s, transform 0.3s;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to ZelleMail!</h1>
-    <p>Please sign in to view your Zelle transaction summary.</p>
-
-    <form action="/login" method="post">
-        <button type="submit">Sign in with Google</button>
-    </form>
+    <div class="login-container">
+        <h1 class="mb-4">Welcome to ZelleMail!</h1>
+        <form action="/login" method="post">
+            <button type="submit" class="btn btn-primary">Sign in with Google</button>
+        </form>
+        <p></p>
+        <p>Please sign in to view your Zelle transaction summaries.</p>
+    </div>
 </body>
 </html>
