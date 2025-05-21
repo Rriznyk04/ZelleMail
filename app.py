@@ -17,7 +17,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/userinfo.profile',
     'openid'
 ]
-REDIRECT_URI = 'http://127.0.0.1:5000/callback'
+REDIRECT_URI = 'http://3.93.9.108.nip.io:8080/callback'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:zellemail1!@database-2.cfuhl0d69zyn.us-east-1.rds.amazonaws.com:3306/zelleDatabase'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
