@@ -1,11 +1,62 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Summary Result</title>
+    <meta charset="UTF-8">
+    <title>Zelle Summary Result</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f8ff;
+            padding: 2rem;
+        }
+        .summary-box {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .transaction-card {
+            background-color: #ffffff;
+            border-left: 6px solid #007bff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .transaction-card.sent {
+            border-left-color: #dc3545;
+        }
+    </style>
 </head>
 <body>
-    <h1>Zelle Summary Result</h1>
-    <p>{{ summary }}</p>
-    <a href="/summary_time">Go back</a>
+
+<div class="container">
+    <div class="summary-box text-center">
+        <h2 class="mb-3">📊 Zelle Summary Report</h2>
+        <p><strong>Date Range:</strong> {{ start_date }} → {{ end_date }}</p>
+        <p><strong>Total Received:</strong> ${{ '%.2f' % total_received }}</p>
+        <p><strong>Total Sent:</strong> ${{ '%.2f' % total_sent }}</p>
+    </div>
+
+    <h4 class="mb-3">Transactions in Range</h4>
+
+    {% if transactions %}
+        {% for t in transactions %}
+            <div class="transaction-card {% if t.Direction == 'sent' %}sent{% endif %}">
+                <strong>{{ t.Direction|capitalize }}</strong> – ${{ '%.2f' % t.Amount }} <br>
+                <small>{{ t.Date.strftime('%Y-%m-%d %H:%M:%S') }}</small><br>
+                <em>{{ t.SubjectLine }}</em>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No transactions found in this range.</p>
+    {% endif %}
+
+    <a href="/summary_time" class="btn btn-outline-primary mt-4">Go Back</a>
+</div>
+
 </body>
 </html>
