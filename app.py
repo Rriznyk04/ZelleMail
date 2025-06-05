@@ -174,15 +174,15 @@ def generate_summary():
     Transaction.Date >= start_date,
     Transaction.Date <= end_date
 ).all()
-
-return render_template(
-    'summary_result.html',
-    transactions=transactions_in_range,
-    start_date=start_date,
-    end_date=end_date,
-    total_received=total_received,
-    total_sent=total_sent
-)
+    
+    return render_template(
+        'summary_result.html',
+        transactions=transactions_in_range,
+        start_date=start_date,
+        end_date=end_date,
+        total_received=total_received,
+        total_sent=total_sent
+    )
 
 @app.route('/init_db')
 def init_db():
